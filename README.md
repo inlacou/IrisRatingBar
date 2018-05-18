@@ -62,10 +62,26 @@ Use it in your layouts!
 
 ```xml
 <path.to.your.subclassed.ratingbar.StarRatingBar
-	android:id="@+id/ratingbar_faces"
+	android:id="@+id/ratingbar_stars"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:padding="16dp"/>
+```
+
+## Listeners
+
+```kt
+findViewById<FacesRatingBar>(R.id.ratingbar_stars).valueChangeListener = {
+	//Called on every value change
+	//Warning! pretty spammy :)
+	Toast.makeText(this, "valueSet: $it", Toast.LENGTH_SHORT).show()
+}
+
+findViewById<StarRatingBar>(R.id.ratingbar_stars).valueSetListener = {
+	//Called when user lifts it's finger, setting the value
+	//This is the listener you will commonly use
+	Toast.makeText(this, "valueSet: $it", Toast.LENGTH_SHORT).show()
+}
 ```
 
 ## Parameters
@@ -76,5 +92,3 @@ Use it in your layouts!
 * *editable*: If true, value can be modified by user.
 * *singleSelection*: If true, only one icon at most will be active at any time.
 * *icons*: actual icons to use.
-
-//TODO add some gifs and maybe some examples more.
