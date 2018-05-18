@@ -26,11 +26,11 @@ class FacesRatingBar @JvmOverloads constructor(
 Use it in your layouts!
 
 ```xml
-		<path.to.your.subclassed.ratingbar.FacesRatingBar
-      android:id="@+id/ratingbar_faces"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+<path.to.your.subclassed.ratingbar.FacesRatingBar
+	android:id="@+id/ratingbar_faces"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
 ```
 
 //TODO add more usage examples here.
