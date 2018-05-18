@@ -3,6 +3,7 @@ package com.inlacou.library.calendar.irisratingbar
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -11,13 +12,13 @@ import android.widget.LinearLayout
 /**
  * Created by Inlacou on 31/01/2018.
  */
-open class IrisRatingBar : FrameLayout {
+open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisRatingBarMdl? = null, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+	: FrameLayout(context, attrs, defStyleAttr) {
 
 	var valueSetListener: ((value: Int) -> Any)? = null
 	var valueChangeListener: ((value: Int) -> Any)? = null
-	private var cont: Context? = null
 
-	var surfaceLayout: LinearLayout? = null
+	private var surfaceLayout: LinearLayout? = null
 	private val imageViews = mutableListOf<ImageView>()
 
 	var model: IrisRatingBarMdl = IrisRatingBarMdl(value = 5, editable = true, singleSelection = false,
@@ -82,51 +83,20 @@ open class IrisRatingBar : FrameLayout {
                 updateListeners()
 			}
 		}
-	lateinit var controller: IrisRatingBarCtrl
+	lateinit var controller: IrisRatingBarCtrl //TODO move code to controller and declutter this class
 
 	init {
-
-	}
-
-	constructor(context: Context) : super(context) {
-		this.cont = context
-		init()
-	}
-
-	constructor(context: Context, model: IrisRatingBarMdl? = null, attrs: AttributeSet? = null, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-		this.cont = context
-		model?.let { this.model = model }
-		attrs?.let { readAttrs(attrs) }
-		init()
-	}
-
-	constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs) {
-		this.cont = context
-		attrs?.let { readAttrs(attrs) }
-		init()
-	}
-
-	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-		this.cont = context
-		attrs?.let { readAttrs(attrs) }
-		init()
-	}
-
-	private fun init() {
 		initialize()
-		populate()
+		attrs?.let { readAttrs(it) }
+		model.let { if(it!=null) this.model = it else populate() }
 	}
 
-	fun initialize(view: View) {
+	private fun initialize() {
+		View.inflate(context, R.layout.view_custom_rating_bar, this)
 		surfaceLayout = findViewById(R.id.view_base_layout_surface)
 	}
 
-	protected fun initialize() {
-		val rootView = View.inflate(context, R.layout.view_custom_rating_bar, this)
-		initialize(rootView)
-	}
-
-	protected fun readAttrs(attrs: AttributeSet) {
+	private fun readAttrs(attrs: AttributeSet) {
 		val ta = context.obtainStyledAttributes(attrs, R.styleable.IrisRatingBar, 0, 0)
 		try {
 			if (ta.hasValue(R.styleable.IrisRatingBar_editable)) {model.editable = ta.getBoolean(R.styleable.IrisRatingBar_editable, model.editable)}
@@ -138,14 +108,11 @@ open class IrisRatingBar : FrameLayout {
 	}
 
 	private fun populate() {
-		//TODO make it compatible for model.imageViews.size!=max (I know max is not defined, but should once this is done)
+		//TODO make it compatible for model.imageViews.size!=max (I know max is not defined, but should once this is done, and be the maximum value, like minValue works)
 		removeListeners()
 		surfaceLayout?.removeAllViews()
 		imageViews.clear()
-		(0 until model.iconNumber)
-				.forEach{
-					add()
-				}
+		(0 until model.iconNumber).forEach{ addIcon() }
 		update()
 		setListeners()
 	}
@@ -179,7 +146,7 @@ open class IrisRatingBar : FrameLayout {
 				}
 	}
 
-	private fun add(){
+	private fun addIcon(){
 		val newIcon = ImageView(context)
 		imageViews.add(newIcon)
 		surfaceLayout?.addView(newIcon)
@@ -210,27 +177,32 @@ open class IrisRatingBar : FrameLayout {
 	}
 
 	private fun removeListeners() {
-		setOnTouchListener(null)
-		imageViews.forEach { it.setOnTouchListener(null) }
+		surfaceLayout?.setOnTouchListener(null)
 	}
 
 	private fun setListeners() {
 		if(model.editable){
             val touchListener = OnTouchListener { _, event ->
-                when {
-                    event.rawX<=x -> {
+                val realWidth = surfaceLayout?.width ?: width
+	            when {
+                    event.x<=0 -> {
                         value = model.minValue
                     }
-                    event.rawX>=x+width -> {
+                    event.x>=realWidth -> {
                         value = model.iconNumber
                     }
                     else -> {
-                        //val min = 0
-                        val relativePosition = event.rawX-x
-                        val max = width
-                        val stepSize = max/(model.iconNumber)
-                        (model.minValue .. model.iconNumber)
-                                .filter { it -> relativePosition>=it*stepSize && relativePosition<(it+1)*stepSize }
+                        val relativePosition = event.x
+                        val maxNumber = model.iconNumber+1
+                        val stepSize = realWidth/model.iconNumber
+                        (model.minValue .. maxNumber)
+                                .filter { currentPosition ->
+	                                when (currentPosition) {
+		                                model.minValue -> relativePosition < (currentPosition) * stepSize
+		                                maxNumber -> relativePosition >= currentPosition * stepSize
+		                                else -> relativePosition >= (currentPosition-1) * stepSize && relativePosition < (currentPosition) * stepSize
+	                                }
+                                }
                                 .forEach { it -> value = it }
                     }
                 }
@@ -248,11 +220,9 @@ open class IrisRatingBar : FrameLayout {
                     else -> false
                 }
             }
-			setOnTouchListener(touchListener)
-			imageViews.forEach { it.setOnTouchListener(touchListener) }
+			surfaceLayout?.setOnTouchListener(touchListener)
 		}else{
-			setOnTouchListener(null)
-			imageViews.forEach { it.setOnTouchListener(null) }
+			surfaceLayout?.setOnTouchListener(null)
 		}
 	}
 

@@ -11,7 +11,7 @@ import com.inlacou.library.calendar.irisratingbar.IrisRatingBar
  */
 class StarRatingBar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : IrisRatingBar(context, IrisRatingBarMdl(value = 2, maxIcon = 5, minValue = 0, editable = true, singleSelection = false,
+) : IrisRatingBar(context, IrisRatingBarMdl(value = 2, maxIcon = 5, minValue = 1, editable = true, singleSelection = false,
         icons = listOf(
                 IrisRatingBarMdl.RatingBarItem(R.drawable.star_active, R.drawable.star_not_active)
         )), attrs, defStyleAttr)
