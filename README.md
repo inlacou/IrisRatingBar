@@ -33,4 +33,13 @@ Use it in your layouts!
 	android:padding="16dp"/>
 ```
 
-//TODO add more usage examples here.
+In this example, we set 5 different faces to select from, with active and inactive icons for each. 
+
+*value*: The actual value (on constructor, the starting value).
+*maxIcon*: Maximun number of icons shown. If not set, it will take the value from the size of the *icons* array. If above than *icons* size, icons will be repeated. If less, only first N icons will be used.
+*minValue*: Minimun value enabled. Mostly to allow having empty ratingbar for selecting 0 value.
+*editable*: If true, value can be modified by user.
+*singleSelection*: If true, only one icon at most will be active at any time.
+*icons*: actual icons to use.
+
+//TODO add more usage examples here, some gifs and all.
