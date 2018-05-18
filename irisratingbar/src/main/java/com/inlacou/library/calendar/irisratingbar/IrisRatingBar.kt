@@ -21,13 +21,13 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 	private var surfaceLayout: LinearLayout? = null
 	internal val imageViews = mutableListOf<ImageView>()
 
+	/**
+	 * Change full model: no problem
+	 * Change only some fields on the model: probably problems. There are wrappers on this class for this use case and no problems.
+	 */
 	var model: IrisRatingBarMdl = IrisRatingBarMdl(value = 5, editable = true, singleSelection = false,
 			icons = listOf(
 					IrisRatingBarMdl.RatingBarItem(R.drawable.iris_star_filled, R.drawable.iris_star_empty)
-					, IrisRatingBarMdl.RatingBarItem(R.drawable.iris_star_filled, R.drawable.iris_star_empty)
-					, IrisRatingBarMdl.RatingBarItem(R.drawable.iris_star_filled, R.drawable.iris_star_empty)
-					, IrisRatingBarMdl.RatingBarItem(R.drawable.iris_star_filled, R.drawable.iris_star_empty)
-					, IrisRatingBarMdl.RatingBarItem(R.drawable.iris_star_filled, R.drawable.iris_star_empty)
 			))
 		set(value) {
 			field = value
@@ -50,6 +50,10 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 				populate()
 			}
 		}
+	/**
+	 * Yes, you can set value (manually) to below min.
+	 * If the user input must be from 1 to 5, but you want to start at 0 as "empty field", for example.
+	 */
 	var value: Int
 		get() = model.value
 		set(value) {
