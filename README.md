@@ -4,6 +4,8 @@
 
 ## Usual usage
 
+Here we have some examples for quick access, but the project has even more. Don't be afraid to check it out!
+
 ### Faces - Single selection
 
 In this example, we set 5 different faces to select from, with active and inactive icons for each. 
