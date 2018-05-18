@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="IrisRatingBar">
+        <attr name="value" format="integer"/>
+        <attr name="editable" format="boolean"/>
+        <attr name="singleSelection" format="boolean"/>
+    </declare-styleable>
+</resources>
