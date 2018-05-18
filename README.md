@@ -35,11 +35,40 @@ Use it in your layouts!
 
 In this example, we set 5 different faces to select from, with active and inactive icons for each. 
 
-*value*: The actual value (on constructor, the starting value).
-*maxIcon*: Maximun number of icons shown. If not set, it will take the value from the size of the *icons* array. If above than *icons* size, icons will be repeated. If less, only first N icons will be used.
-*minValue*: Minimun value enabled. Mostly to allow having empty ratingbar for selecting 0 value.
-*editable*: If true, value can be modified by user.
-*singleSelection*: If true, only one icon at most will be active at any time.
-*icons*: actual icons to use.
+Another example!
 
-//TODO add more usage examples here, some gifs and all.
+```kt
+
+import android.content.Context
+import android.util.AttributeSet
+
+class StarRatingBar @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : IrisRatingBar(context, IrisRatingBarMdl(value = 2, maxIcon = 5, minValue = 0, editable = true, singleSelection = false,
+        icons = listOf(
+                IrisRatingBarMdl.RatingBarItem(R.drawable.star_active, R.drawable.star_not_active)
+        )), attrs, defStyleAttr)
+```
+
+Use it in your layouts!
+
+```xml
+<path.to.your.subclassed.ratingbar.StarRatingBar
+	android:id="@+id/ratingbar_faces"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+```
+
+In this example all positions have the same icon, a pretty star.
+
+## Parameters
+
+* *value*: The actual value (on constructor, the starting value).
+* *maxIcon*: Maximun number of icons shown. If not set, it will take the value from the size of the *icons* array. If above than *icons* size, icons will be repeated. If less, only first N icons will be used.
+* *minValue*: Minimun value enabled. Mostly to allow having empty ratingbar for selecting 0 value.
+* *editable*: If true, value can be modified by user.
+* *singleSelection*: If true, only one icon at most will be active at any time.
+* *icons*: actual icons to use.
+
+//TODO add some gifs and maybe some examples more.
