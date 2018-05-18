@@ -15,8 +15,8 @@ import android.widget.LinearLayout
 open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisRatingBarMdl? = null, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
 	: FrameLayout(context, attrs, defStyleAttr) {
 
-	var valueSetListener: ((value: Int) -> Any?)? = null
-	var valueChangeListener: ((value: Int) -> Any?)? = null
+	var valueSetListener: ((value: Int) -> Unit)? = null
+	var valueChangeListener: ((value: Int) -> Unit)? = null
 
 	private var surfaceLayout: LinearLayout? = null
 	internal val imageViews = mutableListOf<ImageView>()
