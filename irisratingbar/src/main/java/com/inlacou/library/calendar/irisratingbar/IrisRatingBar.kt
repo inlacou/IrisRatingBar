@@ -19,7 +19,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 	var valueChangeListener: ((value: Int) -> Any)? = null
 
 	private var surfaceLayout: LinearLayout? = null
-	private val imageViews = mutableListOf<ImageView>()
+	internal val imageViews = mutableListOf<ImageView>()
 
 	var model: IrisRatingBarMdl = IrisRatingBarMdl(value = 5, editable = true, singleSelection = false,
 			icons = listOf(
@@ -55,8 +55,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		set(value) {
 			if(model.value!=value){
 				model.value = value
-				valueChangeListener?.invoke(value)
-				update()
+				controller.update()
 			}
 		}
 	var singleSelection: Boolean
@@ -64,7 +63,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		set(value) {
 			if(model.singleSelection!=value){
 				model.singleSelection = value
-				update()
+				controller.update()
 			}
 		}
 	var icons: List<IrisRatingBarMdl.RatingBarItem>
@@ -72,7 +71,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		set(value) {
 			if(model.icons!=value){
 				model.icons = value
-				update()
+				controller.update()
 			}
 		}
 	var editable: Boolean
@@ -83,17 +82,13 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
                 updateListeners()
 			}
 		}
-	lateinit var controller: IrisRatingBarCtrl //TODO move code to controller and declutter this class
+	lateinit var controller: IrisRatingBarCtrl
 
 	init {
-		initialize()
-		attrs?.let { readAttrs(it) }
-		model.let { if(it!=null) this.model = it else populate() }
-	}
-
-	private fun initialize() {
 		View.inflate(context, R.layout.view_custom_rating_bar, this)
 		surfaceLayout = findViewById(R.id.view_base_layout_surface)
+		attrs?.let { readAttrs(it) }
+		model.let { if(it!=null) this.model = it else populate() }
 	}
 
 	private fun readAttrs(attrs: AttributeSet) {
@@ -108,64 +103,20 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 	}
 
 	private fun populate() {
+		controller = IrisRatingBarCtrl(this, this.model)
 		//TODO make it compatible for model.imageViews.size!=max (I know max is not defined, but should once this is done, and be the maximum value, like minValue works)
 		removeListeners()
 		surfaceLayout?.removeAllViews()
 		imageViews.clear()
 		(0 until model.iconNumber).forEach{ addIcon() }
-		update()
+		controller.update()
 		setListeners()
-	}
-
-	private fun update(){
-		(0 until model.iconNumber)
-				.map { //Map to iconItem, which contains the resource ids for active and inactive icons
-                    //There we control when there are less icons than imageViews to represent, so we must repeat icons
-					if(it>=model.icons.size){
-						model.icons[it%model.icons.size]
-					}else{
-						model.icons[it]
-					}
-				}
-				.forEachIndexed{index, iconItem ->
-                    //Now we check what do we have to draw, if active or inactive
-					val newIndex = index+1 //This +1 is done to allow empty ratingBar, otherwise minimum is one icon marked
-					if(model.singleSelection){
-						if(newIndex==model.value){
-							setAsActive(index, iconItem)
-						}else{
-							setAsInactive(index, iconItem)
-						}
-					}else if(newIndex<model.value){
-						setAsActive(index, iconItem)
-					}else if(newIndex==model.value){
-						setAsActive(index, iconItem)
-					}else{
-						setAsInactive(index, iconItem)
-					}
-				}
 	}
 
 	private fun addIcon(){
 		val newIcon = ImageView(context)
 		imageViews.add(newIcon)
 		surfaceLayout?.addView(newIcon)
-	}
-
-	private fun setAsActive(index: Int, iconItem: IrisRatingBarMdl.RatingBarItem) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			imageViews[index].setImageDrawable(context.resources.getDrawable(iconItem.activeResId, null))
-		}else{
-			imageViews[index].setImageDrawable(context.resources.getDrawable(iconItem.activeResId))
-		}
-	}
-
-	private fun setAsInactive(index: Int, iconItem: IrisRatingBarMdl.RatingBarItem) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			imageViews[index].setImageDrawable(context.resources.getDrawable(iconItem.inActiveResId, null))
-		}else{
-			imageViews[index].setImageDrawable(context.resources.getDrawable(iconItem.inActiveResId))
-		}
 	}
 
 	private fun updateListeners() {
@@ -186,7 +137,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
                 val realWidth = surfaceLayout?.width ?: width
 	            when {
                     event.x<=0 -> {
-                        value = model.minValue
+	                    value = model.minValue
                     }
                     event.x>=realWidth -> {
                         value = model.iconNumber
@@ -213,7 +164,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
                     }
                     android.view.MotionEvent.ACTION_CANCEL -> false
                     android.view.MotionEvent.ACTION_UP -> {
-                        valueSetListener?.invoke(value)
+                        controller.onActionUp()
                         false
                     }
                     android.view.MotionEvent.ACTION_MOVE -> true
