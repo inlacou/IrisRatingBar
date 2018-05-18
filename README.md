@@ -6,6 +6,8 @@
 
 ### Faces - Single selection
 
+In this example, we set 5 different faces to select from, with active and inactive icons for each. 
+
 ![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/faces_single_select.gif)
 
 Subclass it:
@@ -37,11 +39,11 @@ Use it in your layouts!
 	android:padding="16dp"/>
 ```
 
-In this example, we set 5 different faces to select from, with active and inactive icons for each. 
-
 ### Stars - Multiple selection
 
-Another example!
+In this example all positions have the same icon, a pretty star.
+
+![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/stars_multiple_selection.gif)
 
 ```kt
 
@@ -65,8 +67,6 @@ Use it in your layouts!
 	android:layout_height="wrap_content"
 	android:padding="16dp"/>
 ```
-
-In this example all positions have the same icon, a pretty star.
 
 ## Parameters
 
