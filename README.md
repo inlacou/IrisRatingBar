@@ -4,7 +4,11 @@
 
 ## Usual usage
 
+Here we have some examples for quick access, but the project has even more. Don't be afraid to check it out!
+
 ### Faces - Single selection
+
+In this example, we set 5 different faces to select from, with active and inactive icons for each. 
 
 ![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/faces_single_select.gif)
 
@@ -37,11 +41,11 @@ Use it in your layouts!
 	android:padding="16dp"/>
 ```
 
-In this example, we set 5 different faces to select from, with active and inactive icons for each. 
-
 ### Stars - Multiple selection
 
-Another example!
+In this example all positions have the same icon, a pretty star.
+
+![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/stars_multiple_selection.gif)
 
 ```kt
 
@@ -60,13 +64,27 @@ Use it in your layouts!
 
 ```xml
 <path.to.your.subclassed.ratingbar.StarRatingBar
-	android:id="@+id/ratingbar_faces"
+	android:id="@+id/ratingbar_stars"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:padding="16dp"/>
 ```
 
-In this example all positions have the same icon, a pretty star.
+## Listeners
+
+```kt
+findViewById<FacesRatingBar>(R.id.ratingbar_stars).valueChangeListener = {
+	//Called on every value change
+	//Warning! pretty spammy :)
+	Toast.makeText(this, "valueSet: $it", Toast.LENGTH_SHORT).show()
+}
+
+findViewById<StarRatingBar>(R.id.ratingbar_stars).valueSetListener = {
+	//Called when user lifts it's finger, setting the value
+	//This is the listener you will commonly use
+	Toast.makeText(this, "valueSet: $it", Toast.LENGTH_SHORT).show()
+}
+```
 
 ## Parameters
 
@@ -76,5 +94,3 @@ In this example all positions have the same icon, a pretty star.
 * *editable*: If true, value can be modified by user.
 * *singleSelection*: If true, only one icon at most will be active at any time.
 * *icons*: actual icons to use.
-
-//TODO add some gifs and maybe some examples more.
