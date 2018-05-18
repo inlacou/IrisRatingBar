@@ -4,6 +4,8 @@
 
 ## Usual usage
 
+![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/faces_single_select.gif)
+
 Subclass it:
 
 ```kt
