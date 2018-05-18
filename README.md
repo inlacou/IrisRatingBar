@@ -4,6 +4,8 @@
 
 ## Usual usage
 
+### Faces - Single selection
+
 ![faces single select gif](https://github.com/inlacou/IrisRatingBar/blob/master/faces_single_select.gif)
 
 Subclass it:
@@ -36,6 +38,8 @@ Use it in your layouts!
 ```
 
 In this example, we set 5 different faces to select from, with active and inactive icons for each. 
+
+### Stars - Multiple selection
 
 Another example!
 
