@@ -12,7 +12,7 @@ class IrisRatingBarMdl(
 		var editable: Boolean = true,
 		var singleSelection: Boolean = false
 ){
-	var iconNumber = 0
+	val iconNumber
 		get() = maxIcon-minIcon
 
 	data class RatingBarItem(

@@ -158,7 +158,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		                                else -> relativePosition >= (currentPosition-1) * stepSize && relativePosition < (currentPosition) * stepSize
 	                                }
                                 }
-                                .forEach { it -> value = it }
+                                .forEach { value = it }
                     }
                 }
                 when(event.action){

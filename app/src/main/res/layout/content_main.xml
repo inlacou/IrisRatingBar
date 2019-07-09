@@ -22,28 +22,28 @@
 			android:id="@+id/ratingbar_1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.StarMediumRatingBar
 			android:id="@+id/ratingbar_2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.StarSmallRatingBar
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.FacesRatingBar
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.LoopRatingBar
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.LessFacesRatingBar
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:padding="16dp"/>
+			android:layout_margin="16dp"/>
 	</LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
