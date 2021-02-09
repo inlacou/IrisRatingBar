@@ -3,7 +3,7 @@ package com.inlacou.library.calendar.irisratingbar
 /**
  * Created by Inlacou on 31/01/2018.
  */
-class IrisRatingBarMdl(
+data class IrisRatingBarMdl(
 		var icons: List<RatingBarItem>,
 		var maxIcon: Int = 5,
 		var minIcon: Int = 0,

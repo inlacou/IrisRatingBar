@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 			Toast.makeText(this, "valueSet: $it", Toast.LENGTH_SHORT).show()
 		}
 
+		btnSetRating.setOnClickListener {
+			Toast.makeText(this, "Set value on first star rating bar to two", Toast.LENGTH_SHORT).show()
+			ratingbar_1.model = ratingbar_1.model.copy(value = 2)
+		}
+
 		fab.setOnClickListener { view ->
 			Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 					.setAction("Action", null).show()
