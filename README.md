@@ -18,6 +18,8 @@ Subclass it:
 
 import android.content.Context
 import android.util.AttributeSet
+import com.inlacou.library.calendar.irisratingbar.IrisRatingBar
+import com.inlacou.library.calendar.irisratingbar.IrisRatingBarMdl
 
 class FacesRatingBar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
