@@ -7,10 +7,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.inlacou.library.irisratingbar.IrisRatingBar
+import com.inlacou.library.irisratingbar.Size
 
 class MainActivity : AppCompatActivity() {
 
 	private lateinit var rb1: IrisRatingBar
+	private lateinit var rb3: IrisRatingBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -18,11 +20,14 @@ class MainActivity : AppCompatActivity() {
 		setSupportActionBar(findViewById(R.id.toolbar))
 
 		rb1 = findViewById(R.id.ratingbar_1)
+		rb3 = findViewById(R.id.ratingbar_3)
 
 		rb1.valueChangeListener = {
 			//Warning! pretty spammy :)
 			Toast.makeText(this, "valueChanged: $it", Toast.LENGTH_SHORT).show()
 		}
+
+		rb3.model = rb3.model.copy(forcedIconSize = Size(160, 160))
 
 		findViewById<IrisRatingBar>(R.id.ratingbar_2).valueSetListener = {
 			//This is the listener you will commonly use

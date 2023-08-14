@@ -10,7 +10,8 @@ data class IrisRatingBarMdl(
     var minValue: Int = minIcon,
     var value: Int = minValue,
     var editable: Boolean = true,
-    var singleSelection: Boolean = false
+    var singleSelection: Boolean = false,
+    var forcedIconSize: Size? = null,
 ){
 	val iconNumber
 		get() = maxIcon-minIcon

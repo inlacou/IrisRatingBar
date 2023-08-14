@@ -81,7 +81,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 	var editable: Boolean
 		get() = model.editable
 		set(value) {
-			if(model.editable!=value){
+			if(model.editable != value) {
 				model.editable = value
                 updateListeners()
 			}
@@ -112,7 +112,7 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		removeListeners()
 		surfaceLayout?.removeAllViews()
 		imageViews.clear()
-		(0 until model.iconNumber).forEach{ addIcon() }
+		repeat(model.iconNumber) { addIcon() }
 		controller.update()
 		setListeners()
 	}
@@ -121,14 +121,15 @@ open class IrisRatingBar@JvmOverloads constructor(context: Context, model: IrisR
 		val newIcon = ImageView(context)
 		imageViews.add(newIcon)
 		surfaceLayout?.addView(newIcon)
+		model.forcedIconSize?.let {
+			newIcon.layoutParams?.width = it.width
+			newIcon.layoutParams?.height = it.height
+		}
 	}
 
 	private fun updateListeners() {
-        if(model.editable){
-            setListeners()
-        }else{
-            removeListeners()
-        }
+        if(model.editable) setListeners()
+        else removeListeners()
 	}
 
 	private fun removeListeners() {

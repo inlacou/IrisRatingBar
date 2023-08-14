@@ -34,10 +34,12 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.StarSmallRatingBar
+			android:id="@+id/ratingbar_3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp"/>
 		<com.inlacou.library.ratingbar.customratingbar.ratingbars.FacesRatingBar
+			android:id="@+id/ratingbar_4"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp"/>
