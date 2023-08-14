@@ -35,8 +35,23 @@ dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 	implementation 'androidx.appcompat:appcompat:1.6.1'
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
 repositories {
 	mavenCentral()
+}
+
+afterEvaluate {
+	publishing {
+		publications {
+			// Creates a Maven publication called "release".
+			release(MavenPublication) {
+				from components.release
+				groupId = 'com.inlacou.library'
+				artifactId = 'irisratingbar'
+				version = '1.2.2'
+			}
+		}
+	}
 }
