@@ -1,4 +1,4 @@
-package com.inlacou.library.calendar.irisratingbar
+package com.inlacou.library.irisratingbar
 
 import android.content.Context
 import android.os.Build

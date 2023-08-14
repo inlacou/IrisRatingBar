@@ -2,9 +2,9 @@ package com.inlacou.library.ratingbar.customratingbar.ratingbars
 
 import android.content.Context
 import android.util.AttributeSet
-import com.inlacou.library.calendar.customratingbar.R
-import com.inlacou.library.calendar.irisratingbar.IrisRatingBarMdl
-import com.inlacou.library.calendar.irisratingbar.IrisRatingBar
+import com.inlacou.library.irisratingbar.IrisRatingBar
+import com.inlacou.library.irisratingbar.IrisRatingBarMdl
+import com.inlacou.library.ratingbar.customratingbar.R
 
 /**
  * Created by Inlacou on 31/01/2018.
