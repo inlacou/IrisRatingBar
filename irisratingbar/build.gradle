@@ -7,8 +7,6 @@ android {
 	defaultConfig {
 		targetSdkVersion 34
 		minSdkVersion 16
-		versionCode 1
-		versionName "1.0"
 
 		namespace 'com.inlacou.library.irisratingbar'
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -50,7 +48,7 @@ afterEvaluate {
 				from components.release
 				groupId = 'com.inlacou.library'
 				artifactId = 'irisratingbar'
-				version = '1.2.2'
+				version = '1.2.4'
 			}
 		}
 	}
